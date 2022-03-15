@@ -1,3 +1,4 @@
+var dot = require('dotenv'); dot.config();
 var counter  = require('counter');
 var express = require('express');
 var fs = require('fs');
@@ -254,8 +255,13 @@ router.get(
 );
 
 function protected(req, res, next) {
-  if (req.headers["key"] == env["KEY"]) {
-    next()
+  const key = req.headers["key"]
+  if (key) {
+    if (key == process.env["KEY"]) {
+      next()
+    } else {
+      res.status(401).send("")
+    }
   } else {
     res.status(401).send("")
   }
