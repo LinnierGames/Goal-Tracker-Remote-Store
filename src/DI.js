@@ -10,7 +10,11 @@ module.exports = class DI {
    */
   static dataDirectory() {
     if (os.type() == 'Darwin') {
-      return "/Users/esericksanc/Goals/Data";
+      if (os.hostname() == 'Ericks-Microwave.local') {
+        return "/Users/ericksmicrowave/Documents/Habits/Data";
+      } else {
+        return "/Users/esericksanc/Goals/Data";
+      }
     } else if (os.type() == 'Linux') {
       return "/home/pi/Pictures";
     } else {
@@ -23,7 +27,11 @@ module.exports = class DI {
    */
   static reportsDirectory() {
     if (os.type() == 'Darwin') {
-      return "/Users/esericksanc/Goals/Reports";
+      if (os.hostname() == 'Ericks-Microwave.local') {
+        return "/Users/ericksmicrowave/Documents/Habits/Reports";
+      } else {
+        return "/Users/esericksanc/Goals/Reports";
+      }
     } else if (os.type() == 'Linux') {
       return "/home/pi/PiPic";
     } else {

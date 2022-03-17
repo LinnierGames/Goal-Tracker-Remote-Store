@@ -128,7 +128,7 @@ router.post(
           .json({ message: "something went wrong", errors: errors });
       }
 
-      mqtt.publish("NEW FILES", '/goals/new-data');
+      mqtt.publish("NEW FILES", 'goals/new-data');
 
       res
         .status(201)
@@ -180,7 +180,7 @@ function publishAPNS() {
 
   var options = {
     token: { // Name: Habit Tracker APNS
-      key: "/Users/esericksanc/Developer/My-Projects/Habits/Remote Store/src/AuthKey_5Q9264PR5S.p8",
+      key: "/Users/ericksmicrowave/Developer/Habit-Tracker/Goal-Tracker-Remote-Store/src/AuthKey_5Q9264PR5S.p8",
       keyId: "5Q9264PR5S",
       teamId: "8U3L6K9JA6"
     },
