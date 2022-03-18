@@ -181,7 +181,7 @@ function publishAPNS() {
   var options = {
     token: { // Name: Habit Tracker APNS
       key: DI.apnsAbsoluteFilepath(),
-      keyId: process.env["APPLE_DEV_TEAM_ID"],
+      keyId: process.env["APPLE_APNS_KEY_ID"],
       teamId: process.env["APPLE_DEV_TEAM_ID"]
     },
     production: false

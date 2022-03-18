@@ -13,7 +13,7 @@ module.exports = class DI {
       if (os.hostname() == 'Ericks-Microwave.local') {
         return "/Users/ericksmicrowave/Documents/Habits/Data";
       } else {
-        return "/Users/esericksanc/Goals/Data";
+        return "/Users/esericksanc/Documents/Goals/Data";
       }
     } else if (os.type() == 'Linux') {
       return "/home/pi/Pictures";
@@ -30,7 +30,7 @@ module.exports = class DI {
       if (os.hostname() == 'Ericks-Microwave.local') {
         return "/Users/ericksmicrowave/Documents/Habits/Reports";
       } else {
-        return "/Users/esericksanc/Goals/Reports";
+        return "/Users/esericksanc/Documents/Goals/Reports";
       }
     } else if (os.type() == 'Linux') {
       return "/home/pi/PiPic";
