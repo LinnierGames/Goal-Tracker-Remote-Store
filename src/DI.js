@@ -38,4 +38,21 @@ module.exports = class DI {
       return "~/tmp";
     }
   }
+
+  /**
+   * Filepath where the APNS p8 file is tored.
+   */
+  static apnsAbsoluteFilepath() {
+    if (os.type() == 'Darwin') {
+      if (os.hostname() == 'Ericks-Microwave.local') {
+        return "/Users/ericksmicrowave/Developer/Habit-Tracker/Goal-Tracker-Remote-Store/src/AuthKey.p8";
+      } else {
+        return "/Users/esericksanc/Developer/My-Projects/Habits/Remote-Store/src/AuthKey.p8";
+      }
+    } else if (os.type() == 'Linux') {
+      return "/home/pi/Pictures";
+    } else {
+      return "~/tmp";
+    }
+  }
 }

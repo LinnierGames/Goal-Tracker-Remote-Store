@@ -180,9 +180,9 @@ function publishAPNS() {
 
   var options = {
     token: { // Name: Habit Tracker APNS
-      key: "/Users/ericksmicrowave/Developer/Habit-Tracker/Goal-Tracker-Remote-Store/src/AuthKey_5Q9264PR5S.p8",
-      keyId: "5Q9264PR5S",
-      teamId: "8U3L6K9JA6"
+      key: DI.apnsAbsoluteFilepath(),
+      keyId: process.env["APPLE_DEV_TEAM_ID"],
+      teamId: process.env["APPLE_DEV_TEAM_ID"]
     },
     production: false
   };
