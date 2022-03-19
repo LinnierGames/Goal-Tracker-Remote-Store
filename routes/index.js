@@ -108,6 +108,7 @@ router.post(
     var renamingCount = counter(0);
     var errors = [];
 
+    console.log("Storing data:", req.files.map((f) => f.originalname))
     for (const file of req.files) {
       renamingCount.value += 1;
 
@@ -159,6 +160,7 @@ router.post(
     const tempPath = file.path;
     const targetPath = path.join(DI.reportsDirectory(), file.originalname);
 
+    console.log("Storing report:", file.originalname)
     fs.rename(tempPath, targetPath, (err) => {
       if (err) {
         return res
@@ -175,37 +177,6 @@ router.post(
   }
 );
 
-function publishAPNS() {
-  var apn = require('node-apn');
-
-  var options = {
-    token: { // Name: Habit Tracker APNS
-      key: DI.apnsAbsoluteFilepath(),
-      keyId: process.env["APPLE_APNS_KEY_ID"],
-      teamId: process.env["APPLE_DEV_TEAM_ID"]
-    },
-    production: false
-  };
-  
-  var apnProvider = new apn.Provider(options);
-
-
-  var note = new apn.Notification();
-
-  let deviceToken = "e5ba155e45f67e622a4a635452ba20a7780588a9367a21f971cfd7a54ea55733"
-  note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
-  note.badge = 3;
-  note.sound = "ping.aiff";
-  note.alert = "Your report is available to view";
-  note.payload = {'messageFrom': 'John Appleseed'};
-  note.topic = "com.linniergames.Habit-Tracker";
-
-  apnProvider.send(note, deviceToken).then( (result) => {
-    // see documentation for an explanation of result
-    console.log("STUF", result)
-  });
-}
-
 router.get(
   '/reports', 
 
@@ -213,11 +184,6 @@ router.get(
 
   // Handle loading all filenames stored in the user directory.
   function(req, res) {
-    var imageScale = 1;
-    const requestingImageScale = req.query.scale;
-    if (requestingImageScale !== undefined) {
-      imageScale = requestingImageScale
-    }
     const filenames = reportsDirectory.filenames();
 
     const protocol = req.protocol;
@@ -253,6 +219,37 @@ router.get(
       .sendFile(path.join(DI.reportsDirectory(), filename));
   }
 );
+
+function publishAPNS() {
+  var apn = require('node-apn');
+
+  var options = {
+    token: { // Name: Habit Tracker APNS
+      key: DI.apnsAbsoluteFilepath(),
+      keyId: process.env["APPLE_APNS_KEY_ID"],
+      teamId: process.env["APPLE_DEV_TEAM_ID"]
+    },
+    production: false
+  };
+  
+  var apnProvider = new apn.Provider(options);
+
+
+  var note = new apn.Notification();
+
+  let deviceToken = "e5ba155e45f67e622a4a635452ba20a7780588a9367a21f971cfd7a54ea55733"
+  note.expiry = Math.floor(Date.now() / 1000) + 3600; // Expires 1 hour from now.
+  note.badge = 3;
+  note.sound = "ping.aiff";
+  note.alert = "Your report is available to view";
+  note.payload = {'messageFrom': 'John Appleseed'};
+  note.topic = "com.linniergames.Habit-Tracker";
+
+  apnProvider.send(note, deviceToken).then( (result) => {
+    // see documentation for an explanation of result
+    console.log("STUF", result)
+  });
+}
 
 function protected(req, res, next) {
   const key = req.headers["key"]
